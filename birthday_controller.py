@@ -140,7 +140,6 @@ async def shows_birthdays(message: Message):
             await message.answer("Дні народження " f"{message.text}:\n" + result_message + "Готуй привітання!",
                                  reply_markup=keyboards.get_menu_keyboard())
         else:
-            # delete_current_status(message.chat.id)
             await message.answer("Немає людини з днем народження у вибрану дату!\nВведи іншу дату",
                                  reply_markup=keyboards.cancel_keyboard())
     except (IndexError, ValueError):
