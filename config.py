@@ -4,7 +4,6 @@ import os
 from aiogram import Bot, Dispatcher
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-API_link = os.getenv("API_link")
 
 logging.basicConfig(
     format=u'[%(asctime)s]  %(message)s',
