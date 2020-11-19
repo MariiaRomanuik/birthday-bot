@@ -6,7 +6,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 
-engine = create_engine(f'sqlite:///{os.path.dirname(__file__)}//telegram_info.db', echo=True)
+engine = create_engine(os.getenv("DATABASE_URL"))
 Session = sessionmaker(bind=engine)
 session = Session()
 Base = declarative_base()
