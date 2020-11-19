@@ -43,7 +43,7 @@ def get_date_keyboard():
 
 def get_persons_keyboard(persons):
     return ReplyKeyboardMarkup(
-        keyboard=[[person.name] for person in persons] + [["Відмінити"]],  # [person.name] + [person.category]
+        keyboard=[[person.name] for person in persons] + [["Відмінити"]],
         resize_keyboard=True
     )
 
