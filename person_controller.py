@@ -88,7 +88,8 @@ async def create_person_birthday(message: Message):
                                       day=int(birthday[0]))
         status.status_type = StatusType.CreatePersonCategory.value
         save(status)
-        await message.answer("Введи категорію", reply_markup=keyboards.cancel_keyboard())
+        await message.answer("Ми розподіляємо людей по категоріях які ти для себе придумаєш/n, тому введи категорію:",
+                             reply_markup=keyboards.cancel_keyboard())
     except (IndexError, ValueError):
         await message.answer("Запиши, будь ласка, в правильному форматі дату!")
 

@@ -8,4 +8,11 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="sync_metronome" />
   </component>
+  <component name="TemplatesService">
+    <option name="TEMPLATE_FOLDERS">
+      <list>
+        <option value="$MODULE_DIR$/../../sync_metronome/templates" />
+      </list>
+    </option>
+  </component>
 </module>
