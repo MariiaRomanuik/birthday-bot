@@ -92,11 +92,12 @@ def count_age(person):
     year = person.birthday.year
     if year > 1:
         age = date.today().year - year
-        if 9 < age < 21 or 4 < age % 10 < 10:
+        last_digit = age % 10
+        if 10 < age < 20 or last_digit in [0, 5, 6, 7, 8, 9]:
             return f"({age} років)"
-        if age % 10 == 1:
+        if last_digit == 1:
             return f"({age} рік)"
-        if 1 < age % 10 < 5:
+        if last_digit in [2, 3, 4]:
             return f"({age} роки)"
     return ""
 
