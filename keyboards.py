@@ -10,6 +10,9 @@ def get_menu_keyboard():
             ],
             [
                 KeyboardButton(text="Редагувати особу"),
+                KeyboardButton(text="Видалити особу"),
+            ],
+            [
                 KeyboardButton(text="Змінити своє ім'я")
             ],
         ],

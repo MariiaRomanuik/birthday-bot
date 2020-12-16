@@ -121,6 +121,3 @@ def delete_current_status(user_id):
     session.query(UserStatus).filter_by(user_id=user_id).delete()
     session.commit()
 
-
-def show_person_by_written_date(person):
-    return session.query(Person).filter_by(name=person.name).all()
