@@ -5,7 +5,8 @@ from aiogram.types import Message
 
 import keyboards
 from database import Person, Category, StatusType, save, get_category_by_type, get_current_status_type, UserStatus, \
-    delete_current_status, get_current_status, get_persons_by_user, get_person_by_user_and_name
+    delete_current_status, get_current_status, get_persons_by_user, get_person_by_user_and_name, get_user_by_chat_id, \
+    delete_person_by_id
 from user_controller import bot
 
 
@@ -127,3 +128,20 @@ async def edit_person_category(message):
     save(status.person)
     delete_current_status(message.chat.id)
     await message.answer("Категорію змінено!", reply_markup=keyboards.get_menu_keyboard())
+
+
+@bot.message_handler(Text(equals=["Видалити особу"]))
+async def delete_person(message: Message):
+    save(UserStatus(user_id=message.chat.id, status_type=StatusType.DeletePerson.value))
+    persons = get_persons_by_user(message.chat.id)
+    await message.answer("Вибери особу", reply_markup=keyboards.get_persons_keyboard(persons))
+
+
+@bot.message_handler(lambda message: get_current_status_type(message.chat.id) == StatusType.DeletePerson.value)
+async def delete_person_by_status(message):
+    user = get_user_by_chat_id(message.chat.id)
+    status = get_current_status(message.chat.id)
+    delete_person_by_id(status.person_id)
+    delete_current_status(message.chat.id)
+    await message.answer(f"Особа видалена!/n{user.name}, вибери варіант нижче:",
+                         reply_markup=keyboards.get_menu_keyboard())
