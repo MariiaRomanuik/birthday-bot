@@ -91,6 +91,11 @@ def delete_person_by_id(person_id):
     session.commit()
 
 
+def delete_person_by_name(person_name):
+    session.query(Person).filter_by(name=person_name).delete()
+    session.commit()
+
+
 def get_category_by_type(category_type):
     return session.query(Category).filter_by(type=category_type).first()
 
