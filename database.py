@@ -51,6 +51,7 @@ class StatusType(Enum):
     EditPersonCategory = "EPC"
     DeletePerson = "DP"
     ShowBirthdays = "SB"
+    ShowBirthdaysByDate = "SBD"
 
 
 class UserStatus(Base):
