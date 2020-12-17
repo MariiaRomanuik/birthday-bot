@@ -132,8 +132,8 @@ async def edit_person_category(message):
 
 @bot.message_handler(Text(equals=["Видалити особу"]))
 async def delete_person(message: Message):
-    save(UserStatus(user_id=message.chat.id, status_type=StatusType.DeletePerson.value))
     persons = get_persons_by_user(message.chat.id)
+    save(UserStatus(user_id=message.chat.id, status_type=StatusType.DeletePerson.value))
     await message.answer("Вибери особу", reply_markup=keyboards.get_persons_keyboard(persons))
 
 
