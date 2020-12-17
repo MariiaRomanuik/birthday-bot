@@ -117,9 +117,10 @@ def format_birthdays(persons):
 
 @bot.message_handler(Text(equals=["Вибрати дату"]))
 async def choose_data(message: Message):
-    status = get_current_status_type(message.chat.id)
-    status.status_type = StatusType.ShowBirthdaysByDate.value
-    save(status)
+    # status = get_current_status_type(message.chat.id)
+    # status = StatusType.ShowBirthdaysByDate.value
+    # save(status)
+    save(UserStatus(user_id=message.chat.id, status_type=StatusType.ShowBirthdaysByDate.value))
     await message.answer("Введи дату у форматі " + date.today().strftime("%d.%m"),
                          reply_markup=keyboards.cancel_keyboard())
 
