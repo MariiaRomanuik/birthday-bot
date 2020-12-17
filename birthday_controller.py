@@ -25,6 +25,7 @@ async def get_data(message: Message):
         for person in persons:
             if person.birthday.replace(year=today.year) == today:
                 result_message += f"\n{person.name} {count_age(person)}\n"
+
         if result_message:
             await message.answer("Дні народження сьогодні:\n" + result_message + "\nЙди писати привітання!")
         else:
@@ -123,8 +124,11 @@ async def choose_data(message: Message):
 @bot.message_handler(lambda message: get_current_status_type(message.chat.id) == StatusType.ShowBirthdays.value)
 async def shows_birthdays(message: Message):
     persons = get_persons_by_user(message.chat.id)
+    # status = get_current_status_type(message.chat.id)
     result_message = ""
     birthday = message.text.split(".")
+    # status.status_type = StatusType.ShowBirthdaysByDate.value
+    StatusType.ShowBirthdays.value = StatusType.ShowBirthdaysByDate.value
 
     try:
         input_day = int(birthday[0])

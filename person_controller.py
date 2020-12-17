@@ -6,7 +6,7 @@ from aiogram.types import Message
 import keyboards
 from database import Person, Category, StatusType, save, get_category_by_type, get_current_status_type, UserStatus, \
     delete_current_status, get_current_status, get_persons_by_user, get_person_by_user_and_name, get_user_by_chat_id, \
-    delete_person_by_id
+    delete_person_by_name
 from user_controller import bot
 
 
@@ -141,7 +141,7 @@ async def delete_person(message: Message):
 async def delete_person_by_status(message):
     user = get_user_by_chat_id(message.chat.id)
     status = get_current_status(message.chat.id)
-    delete_person_by_id(status.person_id)
+    delete_person_by_name(status.person.name)
     delete_current_status(message.chat.id)
     await message.answer(f"Особа видалена!\n{user.name}, вибери варіант нижче:",
                          reply_markup=keyboards.get_menu_keyboard())
