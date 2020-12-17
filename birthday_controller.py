@@ -119,15 +119,16 @@ def format_birthdays(persons):
 async def choose_data(message: Message):
     await message.answer("Введи дату у форматі " + date.today().strftime("%d.%m"),
                          reply_markup=keyboards.cancel_keyboard())
+    status = get_current_status_type(message.chat.id)
+    status.status_type = StatusType.ShowBirthdaysByDate.value
+    save(status)
 
 
-@bot.message_handler(lambda message: get_current_status_type(message.chat.id) == StatusType.ShowBirthdays.value)
+@bot.message_handler(lambda message: get_current_status_type(message.chat.id) == StatusType.ShowBirthdaysByDate.value)
 async def shows_birthdays(message: Message):
-    status_type = StatusType.ShowBirthdaysByDate.value
     persons = get_persons_by_user(message.chat.id)
     result_message = ""
     birthday = message.text.split(".")
-    save(status_type)
 
     try:
         input_day = int(birthday[0])
