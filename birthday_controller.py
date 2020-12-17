@@ -123,12 +123,11 @@ async def choose_data(message: Message):
 
 @bot.message_handler(lambda message: get_current_status_type(message.chat.id) == StatusType.ShowBirthdays.value)
 async def shows_birthdays(message: Message):
-    status = get_current_status_type(message.chat.id)
-    status.status_type = StatusType.ShowBirthdaysByDate.value
+    status_type = StatusType.ShowBirthdaysByDate.value
     persons = get_persons_by_user(message.chat.id)
     result_message = ""
     birthday = message.text.split(".")
-    save(status)
+    save(status_type)
 
     try:
         input_day = int(birthday[0])
