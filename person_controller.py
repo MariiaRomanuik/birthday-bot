@@ -142,7 +142,7 @@ async def delete_person_by_status(message):
     user = get_user_by_chat_id(message.chat.id)
     # status = get_current_status(message.chat.id)
     # status.person.name = message.answer
-    delete_person_by_name(name=message.answer)
+    delete_person_by_name(message.answer)
     delete_current_status(message.chat.id)
     await message.answer(f"Особа видалена!\n{user.name}, вибери варіант нижче:",
                          reply_markup=keyboards.get_menu_keyboard())
