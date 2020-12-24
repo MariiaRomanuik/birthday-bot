@@ -6,7 +6,7 @@ from aiogram.types import Message
 import keyboards
 from controller import bot
 from database import get_persons_by_user, StatusType, get_current_status_type, save, UserStatus, \
-    delete_current_status
+    delete_current_status, get_current_status
 
 
 @bot.message_handler(Text(equals=["Подивитися дні народження"]))
@@ -117,15 +117,15 @@ def format_birthdays(persons):
 
 @bot.message_handler(Text(equals=["Вибрати дату"]))
 async def choose_data(message: Message):
-    # status = get_current_status_type(message.chat.id)
-    # status. = StatusType.ShowBirthdaysByDate.value
-    # save(status)
-    # save(UserStatus(user_id=message.chat.id, status_type=StatusType.ShowBirthdaysByDate.value))
+    status = get_current_status(message.chat.id)
+    status.status_type = StatusType.ShowBirthdaysByDate.value
+    save(status)
+
     await message.answer("Введи дату у форматі " + date.today().strftime("%d.%m"),
                          reply_markup=keyboards.cancel_keyboard())
 
 
-@bot.message_handler(lambda message: get_current_status_type(message.chat.id) == StatusType.ShowBirthdays.value)
+@bot.message_handler(lambda message: get_current_status_type(message.chat.id) == StatusType.ShowBirthdaysByDate.value)
 async def shows_birthdays(message: Message):
     persons = get_persons_by_user(message.chat.id)
     result_message = ""

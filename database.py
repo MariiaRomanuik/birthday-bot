@@ -92,8 +92,8 @@ def delete_person_by_id(person_id):
     session.commit()
 
 
-def delete_person_by_name(name):
-    session.query(Person).filter_by(name=name).delete()
+def delete_person_by_name(user_id, name):
+    session.query(Person).filter_by(user_id=user_id, name=name).delete()
     session.commit()
 
 

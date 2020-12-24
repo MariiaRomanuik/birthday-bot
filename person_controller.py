@@ -132,17 +132,23 @@ async def edit_person_category(message):
 
 @bot.message_handler(Text(equals=["Видалити особу"]))
 async def delete_person(message: Message):
-    persons = get_persons_by_user(message.chat.id)
+    status = get_current_status(message.chat.id)
+    if status is not None:
+        await message.answer("Спочатку закінчи попередню дію!")
+        return
+
     save(UserStatus(user_id=message.chat.id, status_type=StatusType.DeletePerson.value))
+
+    persons = get_persons_by_user(message.chat.id)
     await message.answer("Вибери особу", reply_markup=keyboards.get_persons_keyboard(persons))
 
 
 @bot.message_handler(lambda message: get_current_status_type(message.chat.id) == StatusType.DeletePerson.value)
-async def delete_person_by_status(message):
+async def choose_person_to_delete(message):
     user = get_user_by_chat_id(message.chat.id)
     # status = get_current_status(message.chat.id)
     # status.person.name = message.answer
-    delete_person_by_name(message.answer)
+    delete_person_by_name(message.chat.id, message.text)
     delete_current_status(message.chat.id)
-    await message.answer(f"Особа видалена!\n{user.name}, вибери варіант нижче:",
+    await message.answer(f"Успішно видалено особу {message.text}!\n{user.name}, вибери варіант нижче:",
                          reply_markup=keyboards.get_menu_keyboard())
